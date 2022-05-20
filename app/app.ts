@@ -12,6 +12,6 @@ app.post("/encrypt", (req, res) => {
   UserController.encrypt(req, res);
 });
 
-app.post("/test", (req, res) => {
+app.post("/decrypt/:code", (req, res) => {
   UserController.decrypt(req, res);
 });

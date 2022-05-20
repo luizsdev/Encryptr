@@ -10,6 +10,6 @@ app.listen(3000, function () {
 app.post("/encrypt", function (req, res) {
     UserController.encrypt(req, res);
 });
-app.post("/test", function (req, res) {
+app.post("/decrypt/:code", function (req, res) {
     UserController.decrypt(req, res);
 });

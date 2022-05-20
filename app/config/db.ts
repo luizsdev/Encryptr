@@ -10,6 +10,7 @@ mongoose.connect(uri, (err: any) => {
 
 export const UserSchema = new mongoose.Schema({
   hash: { type: String },
+  code: { type: String },
 });
 
 const User = mongoose.model("User", UserSchema);

@@ -12,7 +12,8 @@ mongoose.connect(uri, function (err) {
     }
 });
 exports.UserSchema = new mongoose.Schema({
-    hash: { type: String }
+    hash: { type: String },
+    code: { type: String }
 });
 var User = mongoose.model("User", exports.UserSchema);
 exports["default"] = User;

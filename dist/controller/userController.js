@@ -11,16 +11,18 @@ var encrypt = function (req, res) {
                 res.send("Encryptying failed");
             }
             else {
-                db_1["default"].create({ hash: hash });
+                var substring = hash.substring(7, 11);
+                db_1["default"].create({ hash: hash, code: substring });
                 res.send("Encrypted and stored sucessfully\n save this code so you can retrieve your password in the future -> " +
-                    hash.substring(7, 11));
+                    substring);
             }
         });
     });
 };
 exports.encrypt = encrypt;
 var decrypt = function (req, res) {
-    var check = req.body;
-    res.send(JSON.stringify(check));
+    var code = req.params.code;
+    var user = db_1["default"].findOne({ code: code });
+    res.send(user);
 };
 exports.decrypt = decrypt;

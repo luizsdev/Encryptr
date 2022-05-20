@@ -9,16 +9,18 @@ export const encrypt = (req: Request, res: Response) => {
       if (err) {
         res.send("Encryptying failed");
       } else {
-        User.create({ hash: hash });
+        const substring = hash.substring(7, 11);
+        User.create({ hash: hash, code: substring });
         res.send(
           "Encrypted and stored sucessfully\n save this code so you can retrieve your password in the future -> " +
-            hash.substring(7, 11)
+            substring
         );
       }
     });
   });
 };
 export const decrypt = (req: Request, res: Response) => {
-  const check = req.body;
-  res.send(JSON.stringify(check));
+  const code = req.params.code;
+  const user = User.findOne({ code: code });
+  res.send(user);
 };
