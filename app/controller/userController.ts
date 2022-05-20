@@ -10,7 +10,7 @@ export const encrypt = (req: Request, res: Response) => {
         res.send("Encryptying failed");
       } else {
         const substring = hash.substring(7, 11);
-        User.create({ hash: hash, code: substring });
+        User.create({ info: stringed, hash: hash, code: substring });
         res.send(
           "Encrypted and stored sucessfully\n save this code so you can retrieve your password in the future -> " +
             substring
@@ -19,8 +19,13 @@ export const encrypt = (req: Request, res: Response) => {
     });
   });
 };
-export const decrypt = (req: Request, res: Response) => {
+export const decrypt = async (req: Request, res: Response) => {
   const code = req.params.code;
-  const user = User.findOne({ code: code });
-  res.send(user);
+  const user = await User.findOne({ code: code });
+  if (user) {
+    const whatToSend = "Here's your info -> " + user.info;
+    res.send(whatToSend);
+  } else {
+    res.send("Couldn't authenticate your code");
+  }
 };

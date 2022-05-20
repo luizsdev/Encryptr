@@ -9,6 +9,7 @@ mongoose.connect(uri, (err: any) => {
 });
 
 export const UserSchema = new mongoose.Schema({
+  info: { type: String },
   hash: { type: String },
   code: { type: String },
 });
